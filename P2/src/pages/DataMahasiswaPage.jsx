@@ -22,11 +22,11 @@ export default function DataMahasiswaPage() {
   return (
     <Layout>
       <div className="pt-20">
-          <section className="py-8 px-4 w-full">
-            <table className="table-auto w-full bg-white shadow rounded">
+          <section className="w-full px-4 py-8">
+            <table className="w-full bg-white rounded shadow table-auto">
               <thead className="border-b border-gray-100">
                 <tr>
-                  <th className="pl-6 py-6">
+                  <th className="py-6 pl-6">
                     <div className="flex items-center text-xs text-gray-500">
                       <p>ID</p>
                     </div>
@@ -54,14 +54,14 @@ export default function DataMahasiswaPage() {
                 </tr>
               </thead>
               <tbody>
-                {mahasiswas.map((mahasiswa)=> <tr className="text-xs bg-blue-50 border-b border-gray-100">
-                  <td className="pl-6 py-6 bg-blue-100">{mahasiswa.id}</td>
+                {mahasiswas.map((mahasiswa)=> <tr className="text-xs border-b border-gray-100 bg-blue-50">
+                  <td className="py-6 pl-6 bg-blue-100">{mahasiswa.id}</td>
                   <td className="pl-6">{mahasiswa.nama}</td>
                   <td>{mahasiswa.npm}</td>
                   <td>{mahasiswa.kelas}</td>
-                  <td className="flex gap-3">
-                    <div className="border px-2 py-1 bg-blue-700 text-white">Edit</div>
-                    <div className="border px-2 py-1 bg-red-500 text-white">Delete</div>
+                  <td>
+                    <div className="px-2 py-1 text-white bg-blue-700 border w-max">Edit</div>
+                    <div className="px-2 py-1 text-white bg-red-500 border w-max">Delete</div>
                   </td>
                 </tr>)}
               </tbody>
