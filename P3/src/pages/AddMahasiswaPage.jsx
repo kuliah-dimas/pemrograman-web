@@ -1,47 +1,32 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 
 
-const EditMahasiswaPage = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
+const AddMahasiswaPage = () => {
+  const navigate = useNavigate();
 
     const [name, setName] = useState('');
     const [npm, setNPM] = useState('');
     const [kelas, setKelas] = useState('');
 
-    useEffect(()=> {
-      const fetchInitialData = async ()=> {
-          try {
-            const response = await axios.get(`http://localhost:8080/read_by_id.php/${id}`);
-
-            const data = response.data.data;
-            setName(data.nama);
-            setNPM(data.npm);
-            setKelas(data.kelas);
-          } catch (e) {
-            console.log(e);
-          }
-      }
-
-      fetchInitialData();
-    }, [id])
-
   const handleSubmit =  async(e) => {
     e.preventDefault();
    
-    const apiEndpoint = `http://localhost:8080/update.php/${id}`;
+    const apiEndpoint = `http://localhost:8080/create.php`;
 
-    const data = {
-      nama:name, 
-      npm, 
-      kelas      
-    }
+    const formData = new FormData();
+    formData.append("nama", name);
+    formData.append("npm", npm);
+    formData.append("kelas", kelas);
 
     try {
-        await axios.put(apiEndpoint, data);
+        await axios.post(apiEndpoint, formData, {
+            headers: {
+                "Content-Type": "form"
+            }
+        });
 
         navigate("/data_mhs");
     } catch (error) {
@@ -63,7 +48,7 @@ const EditMahasiswaPage = () => {
         className="w-full max-w-md p-6 mx-auto bg-white rounded shadow-md"
         onSubmit={handleSubmit}
       >
-        <h2 className="mb-4 text-xl font-semibold">Edit Mahasiswa</h2>
+        <h2 className="mb-4 text-xl font-semibold">Tambah Mahasiswa</h2>
         <div className="mb-4">
           <label htmlFor="nama" className="block text-sm font-medium text-gray-700">
             Nama
@@ -127,4 +112,4 @@ const EditMahasiswaPage = () => {
   );
 };
 
-export default EditMahasiswaPage;
+export default AddMahasiswaPage;
